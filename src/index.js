@@ -6,7 +6,7 @@ import * as React from 'react';
 type Props = React.ElementConfig<'div'> & {
   // Props for the component
   value: string,
-  onValueChange: (value: string) => mixed,
+  onChange: (value: string) => mixed,
   highlight: (value: string) => string | React.Node,
   tabSize: number,
   insertSpaces: boolean,
@@ -483,7 +483,7 @@ export default class Editor extends React.Component<Props, State> {
       true
     );
 
-    this.props.onValueChange(value);
+    this.props.onChange(e);
   };
 
   _history: History = {
@@ -526,7 +526,7 @@ export default class Editor extends React.Component<Props, State> {
       onKeyUp,
       /* eslint-disable no-unused-vars */
       onKeyDown,
-      onValueChange,
+      onChange,
       tabSize,
       insertSpaces,
       ignoreTabKey,
