@@ -197,8 +197,7 @@ export default class Editor extends React.Component<Props, State> {
     input.value = record.value;
     input.selectionStart = record.selectionStart;
     input.selectionEnd = record.selectionEnd;
-console.log("RECORD:", record, record.event)
-     this.props.onChange(record.event) ;
+    this.props.onChange(record.event);
   };
 
   _applyEdits = (record: Record) => {
@@ -245,7 +244,7 @@ console.log("RECORD:", record, record.event)
     }
   };
 
-  _handleKeyDown = (e: *) => {
+  _handleKeyDown = (e: any) => {
     const { tabSize, insertSpaces, ignoreTabKey, onKeyDown } = this.props;
 
     if (onKeyDown) {
@@ -300,7 +299,7 @@ console.log("RECORD:", record, record.event)
               : selectionStart,
             // Move the end cursor by total number of characters removed
             selectionEnd: selectionEnd - (value.length - nextValue.length),
-            event: e
+            event: e,
           });
         }
       } else if (selectionStart !== selectionEnd) {
@@ -329,7 +328,7 @@ console.log("RECORD:", record, record.event)
           // Move the end cursor by total number of characters added
           selectionEnd:
             selectionEnd + tabCharacter.length * (endLine - startLine + 1),
-            event: e
+          event: e,
         });
       } else {
         const updatedSelection = selectionStart + tabCharacter.length;
@@ -343,7 +342,7 @@ console.log("RECORD:", record, record.event)
           // Update caret position
           selectionStart: updatedSelection,
           selectionEnd: updatedSelection,
-          event: e
+          event: e,
         });
       }
     } else if (e.keyCode === KEYCODE_BACKSPACE) {
@@ -364,7 +363,7 @@ console.log("RECORD:", record, record.event)
           // Update caret position
           selectionStart: updatedSelection,
           selectionEnd: updatedSelection,
-          event: e
+          event: e,
         });
       }
     } else if (e.keyCode === KEYCODE_ENTER) {
@@ -390,7 +389,7 @@ console.log("RECORD:", record, record.event)
             // Update caret position
             selectionStart: updatedSelection,
             selectionEnd: updatedSelection,
-            event: e
+            event: e,
           });
         }
       }
@@ -453,10 +452,10 @@ console.log("RECORD:", record, record.event)
         ? // Trigger redo with ⌘+Shift+Z on Mac
           e.metaKey && e.keyCode === KEYCODE_Z && e.shiftKey
         : isWindows
-          ? // Trigger redo with Ctrl+Y on Windows
-            e.ctrlKey && e.keyCode === KEYCODE_Y
-          : // Trigger redo with Ctrl+Shift+Z on other platforms
-            e.ctrlKey && e.keyCode === KEYCODE_Z && e.shiftKey) &&
+        ? // Trigger redo with Ctrl+Y on Windows
+          e.ctrlKey && e.keyCode === KEYCODE_Y
+        : // Trigger redo with Ctrl+Shift+Z on other platforms
+          e.ctrlKey && e.keyCode === KEYCODE_Z && e.shiftKey) &&
       !e.altKey
     ) {
       e.preventDefault();
@@ -476,7 +475,7 @@ console.log("RECORD:", record, record.event)
     }
   };
 
-  _handleChange = (e: *) => {
+  _handleChange = (e: any) => {
     const { value, selectionStart, selectionEnd } = e.target;
 
     this._recordChange(
