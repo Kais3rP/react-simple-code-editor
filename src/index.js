@@ -6,7 +6,6 @@ import * as React from 'react';
 type Props = React.ElementConfig<'div'> & {
   // Props for the component
   value: string,
-  onChange: (value: string) => mixed,
   highlight: (value: string) => string | React.Node,
   tabSize: number,
   insertSpaces: boolean,
@@ -26,6 +25,7 @@ type Props = React.ElementConfig<'div'> & {
   placeholder?: string,
   readOnly?: boolean,
   required?: boolean,
+  onChange?: (e: MouseEvent) => mixed,
   onClick?: (e: MouseEvent) => mixed,
   onFocus?: (e: FocusEvent) => mixed,
   onBlur?: (e: FocusEvent) => mixed,
@@ -197,8 +197,8 @@ export default class Editor extends React.Component<Props, State> {
     input.value = record.value;
     input.selectionStart = record.selectionStart;
     input.selectionEnd = record.selectionEnd;
-
-    this.props.onValueChange(record.value);
+console.log("RECORD:", record, record.event)
+     this.props.onChange(record.event) ;
   };
 
   _applyEdits = (record: Record) => {
@@ -300,6 +300,7 @@ export default class Editor extends React.Component<Props, State> {
               : selectionStart,
             // Move the end cursor by total number of characters removed
             selectionEnd: selectionEnd - (value.length - nextValue.length),
+            event: e
           });
         }
       } else if (selectionStart !== selectionEnd) {
@@ -328,6 +329,7 @@ export default class Editor extends React.Component<Props, State> {
           // Move the end cursor by total number of characters added
           selectionEnd:
             selectionEnd + tabCharacter.length * (endLine - startLine + 1),
+            event: e
         });
       } else {
         const updatedSelection = selectionStart + tabCharacter.length;
@@ -341,6 +343,7 @@ export default class Editor extends React.Component<Props, State> {
           // Update caret position
           selectionStart: updatedSelection,
           selectionEnd: updatedSelection,
+          event: e
         });
       }
     } else if (e.keyCode === KEYCODE_BACKSPACE) {
@@ -361,6 +364,7 @@ export default class Editor extends React.Component<Props, State> {
           // Update caret position
           selectionStart: updatedSelection,
           selectionEnd: updatedSelection,
+          event: e
         });
       }
     } else if (e.keyCode === KEYCODE_ENTER) {
@@ -386,6 +390,7 @@ export default class Editor extends React.Component<Props, State> {
             // Update caret position
             selectionStart: updatedSelection,
             selectionEnd: updatedSelection,
+            event: e
           });
         }
       }

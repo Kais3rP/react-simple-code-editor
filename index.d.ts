@@ -8,7 +8,6 @@ declare module 'react-simple-code-editor' {
     > & {
       // Props for the component
       value: string;
-      onValueChange: (value: string) => void;
       highlight: (value: string) => string | React.ReactNode;
       tabSize?: number;
       insertSpaces?: boolean;
@@ -28,6 +27,7 @@ declare module 'react-simple-code-editor' {
       placeholder?: string;
       readOnly?: boolean;
       required?: boolean;
+      onChange:(e: React.MouseEvent<HTMLTextAreaElement>) => void;
       onClick?: (e: React.MouseEvent<HTMLTextAreaElement>) => void;
       onFocus?: (e: React.FocusEvent<HTMLTextAreaElement>) => void;
       onBlur?: (e: React.FocusEvent<HTMLTextAreaElement>) => void;
